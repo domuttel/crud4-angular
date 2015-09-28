@@ -12,7 +12,7 @@ var swig = require('swig');
 
 
 // *** routes *** //
-var routes = require('./routes/index.js');
+// var routes = require('./routes/index.js'); was a template - dont need
 var apiRoutes = require('./routes/api.js');
 
 
@@ -40,6 +40,9 @@ app.use(express.static(path.join(__dirname, '../client/public')));
 
 // *** main routes *** //
 app.use('/api/v1', apiRoutes);
+app.get('/', function(req, res){
+  res.sendFile(path.join(__dirname, '../client/views', 'index.html'));
+});
 
 
 // catch 404 and forward to error handler
