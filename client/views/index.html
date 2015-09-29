@@ -2,7 +2,7 @@
 <html ng-app="myApp">
   <head>
     <meta charset="utf-8">
-    <title>Que Bueno</title>
+    <title>Tatum Movies</title>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/main.css">
   </head>
@@ -12,20 +12,32 @@
 
   </div> -->
 
-  <form role="form">
+  <form role="form" ng-submit='postMovie()'>
      <div class="form-group">
-       <label for="email">Email address:</label>
-       <input type="email" class="form-control" id="email">
+       <label for="email">Movie</label>
+       <input ng-model="movie" type="text" class="form-control" id="movie">
      </div>
      <div class="form-group">
-       <label for="pwd">Password:</label>
-       <input type="password" class="form-control" id="pwd">
+       <label for="pwd">Year</label>
+       <input ng-model="year" type="text" class="form-control" id="year">
      </div>
      <div class="checkbox">
-       <label><input type="checkbox"> Remember me</label>
+       <label><input ng-model"chickflick" type="checkbox">Chick-flick</label>
      </div>
      <button type="submit" class="btn btn-default">Submit</button>
    </form>
+
+<!-- Show all our movies -->
+   <div ng-repeat="movie in movies">
+     <h5><strong>{{ movie.movie }}</strong></h5>
+     <ul>
+     <li>{{ movie.year }}</li>
+     <li>Chickflick: {{ movie.chickflick }}</li>
+     </ul>
+     <button ng-click="deleteMovie()" class="btn btn-danger btn-xs">DELETE</button>
+     <button class="btn btn-warning btn-xs">EDIT</button>
+   </div>
+
 
   <script type="text/javascript" src="//code.jquery.com/jquery-2.1.4.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
@@ -33,7 +45,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-route.js"></script>
   <script src="js/app.js" type="text/javascript"></script>
   <script src="js/controllers.js" type="text/javascript"></script>
-  <script src="js/directives.js" type="text/javascript"></script>
+<!--   // <script src="js/directives.js" type="text/javascript"></script> -->
   <script src="js/filters.js" type="text/javascript"></script>
   <script src="js/services.js" type="text/javascript"></script>
 

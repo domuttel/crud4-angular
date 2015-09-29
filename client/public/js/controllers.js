@@ -1,5 +1,4 @@
 app.controller('myController', function($scope, myFactory, $http) {
-  $scope.movie = {};
   $scope.edit = false;
   getMovies = function(url) {
     myFactory.getAll(url)
@@ -7,31 +6,20 @@ app.controller('myController', function($scope, myFactory, $http) {
       $scope.movies = response.data;
   });
 };
-getMovies('api/tatums');
+getMovies('api/v1/tatums');
 
 //functions
   $scope.postMovie = function() {
-    var payload = $scope.movie;
+    var payload = {
+      movie: $scope.movie,
+      year: $scope.year,
+      chickflick: $scope.chickflick
+    };
     myFactory.post('/api/v1/tatums', payload)
     .then(function(response){
       $scope.movies.push(response.data);
-      $scope.movie = {};
+      console.log(response.data);
     });
-  };
-
-  $scope.deleteMovie = function(id) {
-        myFactory.delete('/api/v1/tatum/' + id)
-        .then(function(response) {
-          getMovies('api/v1/tatums');
-        });
-      };
-
-  $scope.getMovie = function(id) {
-    myFactory.getSingle('/api/v1/tatum/' + id)
-    .then(function(response) {
-      $scope.movieEdit = response.data;
-      });
-    $scope.edit = true;
   };
 
   $scope.editMovie = function(id) {
@@ -45,4 +33,22 @@ getMovies('api/tatums');
         getMovies('api/v1/tatums');
     });
   };
+
+  $scope.deleteMovie = function(id) {
+        myFactory.delete('/api/v1/tatum/' + id)
+        .then(function(response) {
+          var index = $scope.movies.indexOf(id);
+          $scope.movies.splice(index + 1, 1);
+        });
+      };
+
+  $scope.getMovie = function(id) {
+    myFactory.getSingle('/api/v1/tatum/' + id)
+    .then(function(response) {
+      $scope.movieEdit = response.data;
+      console.log(response.data);
+      });
+    $scope.edit = true;
+  };
+
 });
